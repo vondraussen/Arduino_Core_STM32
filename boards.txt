@@ -501,6 +501,18 @@ Nucleo_32.menu.pnum.NUCLEO_F042K6.build.product_line=STM32F042x6
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.variant=NUCLEO_F042K6
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# rfmstick board
+Nucleo_32.menu.pnum.rfmstick=RFMSTICK
+Nucleo_32.menu.pnum.rfmstick.node=RFMSTICK
+Nucleo_32.menu.pnum.rfmstick.upload.maximum_size=32768
+Nucleo_32.menu.pnum.rfmstick.upload.maximum_data_size=6144
+Nucleo_32.menu.pnum.rfmstick.build.mcu=cortex-m0
+Nucleo_32.menu.pnum.rfmstick.build.board=rfmstick
+Nucleo_32.menu.pnum.rfmstick.build.series=STM32F0xx
+Nucleo_32.menu.pnum.rfmstick.build.product_line=STM32F042x6
+Nucleo_32.menu.pnum.rfmstick.build.variant=rfmstick
+Nucleo_32.menu.pnum.rfmstick.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # NUCLEO_L031K6 board
 Nucleo_32.menu.pnum.NUCLEO_L031K6=Nucleo L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.node=NODE_L031K6
