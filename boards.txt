@@ -1763,6 +1763,17 @@ LoRa.build.core=arduino
 LoRa.build.board=LoRa
 LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# RFM2USB board
+LoRa.menu.pnum.RFM2USB=RFM2USB
+LoRa.menu.pnum.RFM2USB.upload.maximum_data_size=16384
+LoRa.menu.pnum.RFM2USB.upload.maximum_size=131072
+LoRa.menu.pnum.RFM2USB.build.mcu=cortex-m3
+LoRa.menu.pnum.RFM2USB.build.board=RFM2USB
+LoRa.menu.pnum.RFM2USB.build.series=STM32L1xx
+LoRa.menu.pnum.RFM2USB.build.product_line=STM32L151xB
+LoRa.menu.pnum.RFM2USB.build.variant=RFM2USB
+LoRa.menu.pnum.RFM2USB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
