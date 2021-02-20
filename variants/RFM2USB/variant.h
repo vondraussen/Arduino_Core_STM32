@@ -39,52 +39,47 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
-#define PA0  0  // GPS_PPS_PIN
+#define PA0  0
 #define PA8  1
 #define PA9  2  // UART_TX
 #define PA10 3  // UART_RX
-#define PA12 4  // LED1
-#define PA13 5
-#define PA14 6
-#define PA15 7  // GPS_POWER_ON_PIN
+#define PA12 4
+#define PA13 5  // SWDIO
+#define PA14 6  // SWCLK
+#define PA15 7
 #define PB2  8
 #define PB3  9
-#define PB4  10 // LED2
+#define PB4  10
 #define PB5  11
-#define PB8  12 // I2C_SCL
-#define PB9  13 // I2C_SDA
-#define PB10 14 // GPS_UART_TX
-#define PB11 15 // GPS_UART_RX
-#define PA1  16 // A0
-#define PA2  17 // A1 - ADC_VBAT
-#define PB12 18 // A2
-#define PB14 19 // LIS3DH_INT1_PIN
-#define PB15 20 // LIS3DH_INT2_PIN
-#define PB13 21 // RADIO_RESET
-#define PH1  22 // RADIO_XTAL_EN
-#define PA7  23 // RADIO_MOSI
-#define PA6  24 // RADIO_MISO
-#define PA5  25 // RADIO_SCLK
-#define PB0  26 // RADIO_NSS
-#define PA11 27 // RADIO_DIO_0
-#define PB1  28 // RADIO_DIO_1
-#define PA3  29 // RADIO_DIO_2
-#define PH0  30 // RADIO_DIO_3
-#define PC13 31 // RADIO_DIO_4
-#define PB6  32 // RADIO_RF_CRX_RX
-#define PB7  33 // RADIO_RF_CBT_HF
-#define PA4  34 // RADIO_RF_CTX_PA
+#define PB8  12
+#define PB9  13
+#define PB10 14
+#define PB11 15
+#define PA1  16
+#define PA2  17
+#define PB12 18
+#define PB14 19
+#define PB15 20
+#define PB13 21
+#define PH1  22
+#define PA7  23 // SPI_MOSI
+#define PA6  24 // SPI_MISO
+#define PA5  25 // SPI_CLK
+#define PB0  26 // RFM_IRQ
+#define PA11 27
+#define PB1  28
+#define PA3  29
+#define PH0  30
+#define PC13 31
+#define PB6  32
+#define PB7  33
+#define PA4  34 // SPI_SS
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        35
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
 #define NUM_ANALOG_FIRST        16
-
-// On-board LED pin number
-#define LED_BUILTIN             PA12
-#define LED1                    LED_BUILTIN
-#define LED2                    PB4
 
 // SPI Definitions
 #define PIN_SPI_SS              PB0
@@ -108,38 +103,15 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
-// LoRa Definitions
-#define RADIO_RESET             PB13
-#define RADIO_XTAL_EN           PH1
-
-#define RADIO_MOSI              PA7
-#define RADIO_MISO              PA6
-#define RADIO_SCLK              PA5
-#define RADIO_NSS               PB0
-
-#define RADIO_DIO_0             PA11
-#define RADIO_DIO_1             PB1
-#define RADIO_DIO_2             PA3
-#define RADIO_DIO_3             PH0
-#define RADIO_DIO_4             PC13
-
-#define RADIO_RF_CRX_RX         PB6 //CRF3
-#define RADIO_RF_CBT_HF         PB7 //CRF2 HF
-#define RADIO_RF_CTX_PA         PA4 //CRF1 PA
-
-// GPS Definitions
-#define GPS_PPS_PIN             PA0
-#define GPS_UART                USART3
-#define GPS_POWER_ON_PIN        PA15
-#define GPS_UART_TX             PB10
-#define GPS_UART_RX             PB11
-
-// MEMS (LIS3DH)
-#define LIS3DH_INT1_PIN         PB14
-#define LIS3DH_INT2_PIN         PB15
+// RFM69 Definitions
+#define RFM_MOSI                PA7
+#define RFM_MISO                PA6
+#define RFM_SCLK                PA5
+#define RFM_NSS                 PA4
+#define RFM_IRQ                 PB0
 
 /* HAL configuration */
-#define HSE_VALUE               8000000U
+#define HSE_VALUE               ((uint32_t)8000000U)
 
 #ifdef __cplusplus
 } // extern "C"

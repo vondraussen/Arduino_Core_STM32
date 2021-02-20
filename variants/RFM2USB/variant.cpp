@@ -40,37 +40,37 @@ const PinName digitalPin[] = {
   PA_8,  //D1
   PA_9,  //D2 - UART_TX
   PA_10, //D3 - UART_RX
-  PA_12, //D4 - LED1
+  PA_12, //D4
   PA_13, //D5
   PA_14, //D6
-  PA_15, //D7 - GPS_POWER_ON_PIN
+  PA_15, //D7
   PB_2,  //D8
   PB_3,  //D9
-  PB_4,  //D10 - LED2
+  PB_4,  //D10
   PB_5,  //D11
-  PB_8,  //D12 - I2C_SCL
-  PB_9,  //D13 - I2C_SDA
-  PB_10, //D14 - GPS_UART_TX
-  PB_11, //D15 - GPS_UART_RX
+  PB_8,  //D12
+  PB_9,  //D13
+  PB_10, //D14
+  PB_11, //D15
   PA_1,  //D16/A0
-  PA_2,  //D17/A1 - ADC_VBAT
+  PA_2,  //D17/A1
   PB_12, //D18/A2
-  PB_14, //D19 - LIS3DH_INT1_PIN
-  PB_15, //D20 - LIS3DH_INT2_PIN
-  PB_13, //D21 - RADIO_RESET
-  PH_1,  //D22 - RADIO_XTAL_EN
-  PA_7,  //D23 - RADIO_MOSI
-  PA_6,  //D24 - RADIO_MISO
-  PA_5,  //D25 - RADIO_SCLK
-  PB_0,  //D26 - RADIO_NSS
-  PA_11, //D27 - RADIO_DIO_0
-  PB_1,  //D28 - RADIO_DIO_1
-  PA_3,  //D29 - RADIO_DIO_2
-  PH_0,  //D30 - RADIO_DIO_3
-  PC_13, //D31 - RADIO_DIO_4
-  PB_6,  //D32 - RADIO_RF_CRX_RX
-  PB_7,  //D33 - RADIO_RF_CBT_HF
-  PA_4   //D34 - RADIO_RF_CTX_PA
+  PB_14, //D19
+  PB_15, //D20
+  PB_13, //D21
+  PH_1,  //D22
+  PA_7,  //D23 - RFM_MOSI
+  PA_6,  //D24 - RFM_MISO
+  PA_5,  //D25 - RFM_SCLK
+  PB_0,  //D26 - RFM_IRQ
+  PA_11, //D27
+  PB_1,  //D28
+  PA_3,  //D29
+  PH_0,  //D30
+  PC_13, //D31
+  PB_6,  //D32
+  PB_7,  //D33
+  PA_4   //D34 - RFM_NSS
 };
 
 #ifdef __cplusplus
@@ -90,42 +90,40 @@ extern "C" {
   */
 WEAK void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInit;
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-  /* Configure the main internal regulator output voltage */
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-
-  /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSE;
-  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI48;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = 16;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
-  RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV2;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-    _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
-
-  /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI48;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) {
-    _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
+                              |RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
-    _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
 }
 
